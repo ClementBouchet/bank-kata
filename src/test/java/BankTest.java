@@ -6,6 +6,7 @@ import fr.lacombe.DepositOperation;
 import fr.lacombe.HistoryLine;
 import fr.lacombe.OperationType;
 import fr.lacombe.TimeProvider;
+import fr.lacombe.WithdrawalOperation;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -38,6 +39,32 @@ public class BankTest {
 
 
         bank.handleOperation(operation, account);
+
+
+        Assertions.assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);
+    }
+
+    @Test
+    public void when_withdraw_then_do_withdrawal_in_account() {
+        List<HistoryLine> historyLines = new ArrayList<>();
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);
+        Amount operationAmount = Amount.of(BigDecimal.valueOf(20));
+        Amount accountBalance = Amount.of(BigDecimal.valueOf(0));
+
+        TimeProvider mockedTimeProvider = Mockito.mock(TimeProvider.class);
+        Mockito.when(mockedTimeProvider.now()).thenReturn(operationDate);
+
+        Account account = new Account(Amount.of(BigDecimal.valueOf(20)), mockedTimeProvider, new AccountHistory(new ArrayList<>()));
+
+        historyLines.add(new HistoryLine(OperationType.WITHDRAWAL, operationDate, operationAmount, accountBalance));
+        AccountHistory expectedHistory = new AccountHistory(historyLines);
+
+        Bank bank = new Bank();
+
+        WithdrawalOperation operation = new WithdrawalOperation(operationAmount);
+
+
+        bank.handleWithdrawalOperation(operation, account);
 
 
         Assertions.assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);
