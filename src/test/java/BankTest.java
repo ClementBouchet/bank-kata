@@ -64,7 +64,7 @@ public class BankTest {
         WithdrawalOperation operation = new WithdrawalOperation(operationAmount);
 
 
-        bank.handleWithdrawalOperation(operation, account);
+        bank.handleOperation(operation, account);
 
 
         Assertions.assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);

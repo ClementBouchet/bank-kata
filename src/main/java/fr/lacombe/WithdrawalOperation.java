@@ -1,6 +1,6 @@
 package fr.lacombe;
 
-public class WithdrawalOperation {
+public class WithdrawalOperation extends Operation{
     private Amount operationAmount;
 
     public WithdrawalOperation(Amount operationAmount) {
@@ -8,6 +8,6 @@ public class WithdrawalOperation {
     }
 
     public void affectTo(Account account) {
-        account.withdrawal(operationAmount);
+        account.withdraw(operationAmount);
     }
 }

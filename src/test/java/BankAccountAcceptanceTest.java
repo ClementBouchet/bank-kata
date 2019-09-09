@@ -41,7 +41,7 @@ public class BankAccountAcceptanceTest {
 
 
         account.deposit(amount1);
-        account.withdrawal(amount2);
+        account.withdraw(amount2);
 
 
         assertThat(account.getAccountHistory()).isEqualTo(expectedAccountStatement);

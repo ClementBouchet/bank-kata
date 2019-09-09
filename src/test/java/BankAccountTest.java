@@ -51,7 +51,7 @@ public class BankAccountTest {
         Account account = new Account(initialAccountBalance, anyTimeProvider, new AccountHistory(new ArrayList<>()));
         Amount amountWithdrawn = Amount.of(BigDecimal.valueOf(9.05));
 
-        account.withdrawal(amountWithdrawn);
+        account.withdraw(amountWithdrawn);
 
         Amount accountBalanceAfterWithdrawal = account.accountBalance;
         assertThat(accountBalanceAfterWithdrawal).isEqualTo(expectedAccountBalance);
@@ -95,7 +95,7 @@ public class BankAccountTest {
         AccountHistory expectedHistory = new AccountHistory(historyLines);
 
 
-        account.withdrawal(operationAmount);
+        account.withdraw(operationAmount);
 
 
         assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);

@@ -1,6 +1,6 @@
 package fr.lacombe;
 
-public class DepositOperation {
+public class DepositOperation extends Operation{
 
     private Amount amount;
 

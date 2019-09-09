@@ -23,7 +23,7 @@ public class Account {
         accountHistory.addLine(OperationType.DEPOSIT, operationDate, amountDeposited, accountBalance);
     }
 
-    public void withdrawal(Amount amountWithdrawn) {
+    public void withdraw(Amount amountWithdrawn) {
         accountBalance = accountBalance.subtract(amountWithdrawn);
         createWithdrawalHistoryLine(amountWithdrawn);
     }
