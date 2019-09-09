@@ -78,4 +78,26 @@ public class BankAccountTest {
 
         assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);
     }
+
+    @Test
+    public void when_bank_client_makes_withdrawal_then_add_one_history_line() {
+        List<HistoryLine> historyLines = new ArrayList<>();
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);
+        Amount operationAmount = Amount.of(BigDecimal.valueOf(20));
+        Amount accountBalance = Amount.of(BigDecimal.valueOf(-20));
+
+        TimeProvider mockedTimeProvider = Mockito.mock(TimeProvider.class);
+        Mockito.when(mockedTimeProvider.now()).thenReturn(operationDate);
+
+        Account account = new Account(Amount.of(BigDecimal.ZERO), mockedTimeProvider, new AccountHistory(new ArrayList<>()));
+
+        historyLines.add(new HistoryLine(OperationType.WITHDRAWAL, operationDate, operationAmount, accountBalance));
+        AccountHistory expectedHistory = new AccountHistory(historyLines);
+
+
+        account.withdrawal(operationAmount);
+
+
+        assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);
+    }
 }
