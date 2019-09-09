@@ -1,15 +1,13 @@
 package fr.lacombe;
 
-import java.math.BigDecimal;
-
 public class Account {
-    public BigDecimal accountBalance;
+    public Amount accountBalance;
 
-    public Account(BigDecimal accountBalance) {
+    public Account(Amount accountBalance) {
         this.accountBalance = accountBalance;
     }
 
-    public void deposit(BigDecimal amountDeposited) {
+    public void deposit(Amount amountDeposited) {
         accountBalance = accountBalance.add(amountDeposited);
     }
 }
