@@ -10,6 +10,6 @@ public class Account {
     }
 
     public void deposit(BigDecimal amountDeposited) {
-        accountBalance = amountDeposited;
+        accountBalance = accountBalance.add(amountDeposited);
     }
 }
