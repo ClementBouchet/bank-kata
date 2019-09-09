@@ -1,9 +1,10 @@
 import fr.lacombe.Account;
 import fr.lacombe.Amount;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BankAccountTest {
 
@@ -16,7 +17,7 @@ public class BankAccountTest {
 
         account.deposit(amountDeposited);
 
-        Assertions.assertThat(account.accountBalance).isEqualTo(expectedAccountBalance);
+        assertThat(account.accountBalance).isEqualTo(expectedAccountBalance);
     }
 
     @Test
@@ -29,6 +30,19 @@ public class BankAccountTest {
         account.deposit(amountDeposited);
 
         Amount accountBalanceAfterDeposit = account.accountBalance;
-        Assertions.assertThat(accountBalanceAfterDeposit).isEqualTo(expectedAccountBalance);
+        assertThat(accountBalanceAfterDeposit).isEqualTo(expectedAccountBalance);
+    }
+
+    @Test
+    public void when_a_bank_client_makes_a_deposit_then_the_account_balance_is_substraction_between_the_amount_deposited_and_the_former_account_balance() {
+        Amount expectedAccountBalance = Amount.of(BigDecimal.valueOf(101.9));
+        Amount initialAccountBalance = Amount.of(BigDecimal.valueOf(110.95));
+        Account account = new Account(initialAccountBalance);
+        Amount amountWithdrawn = Amount.of(BigDecimal.valueOf(9.05));
+
+        account.withdrawal(amountWithdrawn);
+
+        Amount accountBalanceAfterWithdrawal = account.accountBalance;
+        assertThat(accountBalanceAfterWithdrawal).isEqualTo(expectedAccountBalance);
     }
 }

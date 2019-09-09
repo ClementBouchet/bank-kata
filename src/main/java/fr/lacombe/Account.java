@@ -10,4 +10,8 @@ public class Account {
     public void deposit(Amount amountDeposited) {
         accountBalance = accountBalance.add(amountDeposited);
     }
+
+    public void withdrawal(Amount amountWithdrawn) {
+        accountBalance = accountBalance.subtract(amountWithdrawn);
+    }
 }

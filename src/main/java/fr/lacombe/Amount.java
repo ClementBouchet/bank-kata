@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Amount {
-    BigDecimal amount;
+
+    private BigDecimal amount;
 
     private Amount(BigDecimal amount) {
         this.amount = amount;
@@ -17,6 +18,10 @@ public class Amount {
 
     Amount add(Amount amountDeposited) {
         return new Amount(amount.add(amountDeposited.amount));
+    }
+
+    Amount subtract(Amount amountWithdrawn) {
+        return new Amount(amount.subtract(amountWithdrawn.amount));
     }
 
     @Override
