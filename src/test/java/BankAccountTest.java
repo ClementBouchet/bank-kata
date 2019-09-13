@@ -20,7 +20,8 @@ public class BankAccountTest {
     public void when_a_bank_client_makes_a_deposit_in_an_empty_account_then_the_account_balance_is_the_amount_deposited() {
         Amount expectedAccountBalance = Amount.of(new BigDecimal(10.19));
         Amount initialAccountBalance = Amount.of(BigDecimal.ZERO);
-        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);
+        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
         Amount amountDeposited = Amount.of(BigDecimal.valueOf(10.19));
 
         account.deposit(amountDeposited, operationDate);
@@ -32,7 +33,8 @@ public class BankAccountTest {
     public void when_a_bank_client_makes_a_deposit_then_the_account_balance_is_sum_between_the_amount_deposited_and_the_former_account_balance() {
         Amount expectedAccountBalance = Amount.of(BigDecimal.valueOf(20.13));
         Amount initialAccountBalance = Amount.of(BigDecimal.valueOf(10.19));
-        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);
+        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
         Amount amountDeposited = Amount.of(BigDecimal.valueOf(9.94));
 
         account.deposit(amountDeposited, operationDate);
@@ -45,7 +47,8 @@ public class BankAccountTest {
     public void when_a_bank_client_makes_a_deposit_then_the_account_balance_is_substraction_between_the_amount_deposited_and_the_former_account_balance() {
         Amount expectedAccountBalance = Amount.of(BigDecimal.valueOf(101.9));
         Amount initialAccountBalance = Amount.of(BigDecimal.valueOf(110.95));
-        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);
+        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
         Amount amountWithdrawn = Amount.of(BigDecimal.valueOf(9.05));
 
         account.withdraw(amountWithdrawn, operationDate);
