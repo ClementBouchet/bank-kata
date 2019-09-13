@@ -2,11 +2,9 @@ import fr.lacombe.Account;
 import fr.lacombe.AccountHistory;
 import fr.lacombe.Amount;
 import fr.lacombe.Bank;
-import fr.lacombe.DepositOperation;
 import fr.lacombe.HistoryLine;
 import fr.lacombe.OperationType;
 import fr.lacombe.TimeProvider;
-import fr.lacombe.WithdrawalOperation;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -35,10 +33,8 @@ public class BankTest {
 
         Bank bank = new Bank(mockedTimeProvider);
 
-        DepositOperation operation = new DepositOperation(operationAmount);
 
-
-        bank.handleOperation(operation, account);
+        bank.deposit(account, operationAmount);
 
 
         Assertions.assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);
@@ -61,10 +57,8 @@ public class BankTest {
 
         Bank bank = new Bank(mockedTimeProvider);
 
-        WithdrawalOperation operation = new WithdrawalOperation(operationAmount);
 
-
-        bank.handleOperation(operation, account);
+        bank.withdraw(account, operationAmount);
 
 
         Assertions.assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);
