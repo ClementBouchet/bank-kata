@@ -4,33 +4,25 @@ import java.time.LocalDateTime;
 
 public class Account {
     public Amount accountBalance;
-    private TimeProvider timeProvider;
     private AccountHistory accountHistory;
 
-    public Account(Amount accountBalance, TimeProvider timeProvider, AccountHistory accountHistory) {
+    public Account(Amount accountBalance, AccountHistory accountHistory) {
         this.accountBalance = accountBalance;
-        this.timeProvider = timeProvider;
         this.accountHistory = accountHistory;
     }
 
-    public void deposit(Amount amountDeposited) {
+    public void deposit(Amount amountDeposited, LocalDateTime operationDate) {
         accountBalance = accountBalance.add(amountDeposited);
-        createDepositHistoryLine(amountDeposited);
+        createHistoryLine(amountDeposited, OperationType.DEPOSIT, operationDate);
     }
 
-    private void createDepositHistoryLine(Amount amountDeposited) {
-        LocalDateTime operationDate = timeProvider.now();
-        accountHistory.addLine(OperationType.DEPOSIT, operationDate, amountDeposited, accountBalance);
-    }
-
-    public void withdraw(Amount amountWithdrawn) {
+    public void withdraw(Amount amountWithdrawn, LocalDateTime operationDate) {
         accountBalance = accountBalance.subtract(amountWithdrawn);
-        createWithdrawalHistoryLine(amountWithdrawn);
+        createHistoryLine(amountWithdrawn, OperationType.WITHDRAWAL, operationDate);
     }
 
-    private void createWithdrawalHistoryLine(Amount amountWithdrawn) {
-        LocalDateTime operationDate = timeProvider.now();
-        accountHistory.addLine(OperationType.WITHDRAWAL, operationDate, amountWithdrawn, accountBalance);
+    private void createHistoryLine(Amount amountOfTransaction, OperationType operationType, LocalDateTime operationDate){
+        accountHistory.addLine(operationType, operationDate, amountOfTransaction, accountBalance);
     }
 
     public AccountHistory getAccountHistory() {

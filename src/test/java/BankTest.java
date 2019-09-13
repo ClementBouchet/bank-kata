@@ -28,12 +28,12 @@ public class BankTest {
         TimeProvider mockedTimeProvider = Mockito.mock(TimeProvider.class);
         Mockito.when(mockedTimeProvider.now()).thenReturn(operationDate);
 
-        Account account = new Account(Amount.of(BigDecimal.ZERO), mockedTimeProvider, new AccountHistory(new ArrayList<>()));
+        Account account = new Account(Amount.of(BigDecimal.ZERO), new AccountHistory(new ArrayList<>()));
 
         historyLines.add(new HistoryLine(OperationType.DEPOSIT, operationDate, operationAmount, accountBalance));
         AccountHistory expectedHistory = new AccountHistory(historyLines);
 
-        Bank bank = new Bank();
+        Bank bank = new Bank(mockedTimeProvider);
 
         DepositOperation operation = new DepositOperation(operationAmount);
 
@@ -54,12 +54,12 @@ public class BankTest {
         TimeProvider mockedTimeProvider = Mockito.mock(TimeProvider.class);
         Mockito.when(mockedTimeProvider.now()).thenReturn(operationDate);
 
-        Account account = new Account(Amount.of(BigDecimal.valueOf(20)), mockedTimeProvider, new AccountHistory(new ArrayList<>()));
+        Account account = new Account(Amount.of(BigDecimal.valueOf(20)), new AccountHistory(new ArrayList<>()));
 
         historyLines.add(new HistoryLine(OperationType.WITHDRAWAL, operationDate, operationAmount, accountBalance));
         AccountHistory expectedHistory = new AccountHistory(historyLines);
 
-        Bank bank = new Bank();
+        Bank bank = new Bank(mockedTimeProvider);
 
         WithdrawalOperation operation = new WithdrawalOperation(operationAmount);
 

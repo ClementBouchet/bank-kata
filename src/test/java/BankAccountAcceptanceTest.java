@@ -37,11 +37,11 @@ public class BankAccountAcceptanceTest {
         historyLines.add(new HistoryLine(operation2, date2, amount2, accountBalance2));
         AccountHistory expectedAccountStatement = new AccountHistory(historyLines);
 
-        Account account = new Account(Amount.of(BigDecimal.valueOf(140)),mockedTimeProvider, new AccountHistory(new ArrayList<>()));
+        Account account = new Account(Amount.of(BigDecimal.valueOf(140)), new AccountHistory(new ArrayList<>()));
 
 
-        account.deposit(amount1);
-        account.withdraw(amount2);
+        account.deposit(amount1, date1);
+        account.withdraw(amount2, date2);
 
 
         assertThat(account.getAccountHistory()).isEqualTo(expectedAccountStatement);

@@ -5,15 +5,15 @@ import java.util.Objects;
 
 public class HistoryLine {
 
-    private OperationType operation;
+    private OperationType operationType;
     private LocalDateTime date;
-    private Amount amount;
+    private Amount amountOfTransaction;
     private Amount accountBalance;
 
-    public HistoryLine(OperationType operation, LocalDateTime date, Amount amount, Amount accountBalance) {
-        this.operation = operation;
+    public HistoryLine(OperationType operationType, LocalDateTime date, Amount amountOfTransaction, Amount accountBalance) {
+        this.operationType = operationType;
         this.date = date;
-        this.amount = amount;
+        this.amountOfTransaction = amountOfTransaction;
         this.accountBalance = accountBalance;
     }
 
@@ -22,14 +22,14 @@ public class HistoryLine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HistoryLine that = (HistoryLine) o;
-        return operation == that.operation &&
+        return operationType == that.operationType &&
                 Objects.equals(date, that.date) &&
-                Objects.equals(amount, that.amount) &&
+                Objects.equals(amountOfTransaction, that.amountOfTransaction) &&
                 Objects.equals(accountBalance, that.accountBalance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(operation, date, amount, accountBalance);
+        return Objects.hash(operationType, date, amountOfTransaction, accountBalance);
     }
 }

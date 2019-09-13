@@ -20,11 +20,10 @@ public class BankAccountTest {
     public void when_a_bank_client_makes_a_deposit_in_an_empty_account_then_the_account_balance_is_the_amount_deposited() {
         Amount expectedAccountBalance = Amount.of(new BigDecimal(10.19));
         Amount initialAccountBalance = Amount.of(BigDecimal.ZERO);
-        TimeProvider anyTimeProvider = new TimeProvider();
-        Account account = new Account(initialAccountBalance, anyTimeProvider, new AccountHistory(new ArrayList<>()));
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
         Amount amountDeposited = Amount.of(BigDecimal.valueOf(10.19));
 
-        account.deposit(amountDeposited);
+        account.deposit(amountDeposited, operationDate);
 
         assertThat(account.accountBalance).isEqualTo(expectedAccountBalance);
     }
@@ -33,11 +32,10 @@ public class BankAccountTest {
     public void when_a_bank_client_makes_a_deposit_then_the_account_balance_is_sum_between_the_amount_deposited_and_the_former_account_balance() {
         Amount expectedAccountBalance = Amount.of(BigDecimal.valueOf(20.13));
         Amount initialAccountBalance = Amount.of(BigDecimal.valueOf(10.19));
-        TimeProvider anyTimeProvider = new TimeProvider();
-        Account account = new Account(initialAccountBalance, anyTimeProvider, new AccountHistory(new ArrayList<>()));
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
         Amount amountDeposited = Amount.of(BigDecimal.valueOf(9.94));
 
-        account.deposit(amountDeposited);
+        account.deposit(amountDeposited, operationDate);
 
         Amount accountBalanceAfterDeposit = account.accountBalance;
         assertThat(accountBalanceAfterDeposit).isEqualTo(expectedAccountBalance);
@@ -47,11 +45,10 @@ public class BankAccountTest {
     public void when_a_bank_client_makes_a_deposit_then_the_account_balance_is_substraction_between_the_amount_deposited_and_the_former_account_balance() {
         Amount expectedAccountBalance = Amount.of(BigDecimal.valueOf(101.9));
         Amount initialAccountBalance = Amount.of(BigDecimal.valueOf(110.95));
-        TimeProvider anyTimeProvider = new TimeProvider();
-        Account account = new Account(initialAccountBalance, anyTimeProvider, new AccountHistory(new ArrayList<>()));
+        LocalDateTime operationDate = LocalDateTime.of(2019, 1, 1, 12, 0);        Account account = new Account(initialAccountBalance, new AccountHistory(new ArrayList<>()));
         Amount amountWithdrawn = Amount.of(BigDecimal.valueOf(9.05));
 
-        account.withdraw(amountWithdrawn);
+        account.withdraw(amountWithdrawn, operationDate);
 
         Amount accountBalanceAfterWithdrawal = account.accountBalance;
         assertThat(accountBalanceAfterWithdrawal).isEqualTo(expectedAccountBalance);
@@ -67,13 +64,13 @@ public class BankAccountTest {
         TimeProvider mockedTimeProvider = Mockito.mock(TimeProvider.class);
         Mockito.when(mockedTimeProvider.now()).thenReturn(operationDate);
 
-        Account account = new Account(Amount.of(BigDecimal.ZERO), mockedTimeProvider, new AccountHistory(new ArrayList<>()));
+        Account account = new Account(Amount.of(BigDecimal.ZERO), new AccountHistory(new ArrayList<>()));
 
         historyLines.add(new HistoryLine(OperationType.DEPOSIT, operationDate, operationAmount, accountBalance));
         AccountHistory expectedHistory = new AccountHistory(historyLines);
 
 
-        account.deposit(operationAmount);
+        account.deposit(operationAmount, operationDate);
 
 
         assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);
@@ -89,13 +86,13 @@ public class BankAccountTest {
         TimeProvider mockedTimeProvider = Mockito.mock(TimeProvider.class);
         Mockito.when(mockedTimeProvider.now()).thenReturn(operationDate);
 
-        Account account = new Account(Amount.of(BigDecimal.ZERO), mockedTimeProvider, new AccountHistory(new ArrayList<>()));
+        Account account = new Account(Amount.of(BigDecimal.ZERO), new AccountHistory(new ArrayList<>()));
 
         historyLines.add(new HistoryLine(OperationType.WITHDRAWAL, operationDate, operationAmount, accountBalance));
         AccountHistory expectedHistory = new AccountHistory(historyLines);
 
 
-        account.withdraw(operationAmount);
+        account.withdraw(operationAmount, operationDate);
 
 
         assertThat(account.getAccountHistory()).isEqualTo(expectedHistory);

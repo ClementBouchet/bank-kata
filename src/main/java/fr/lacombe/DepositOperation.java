@@ -1,5 +1,7 @@
 package fr.lacombe;
 
+import java.time.LocalDateTime;
+
 public class DepositOperation extends Operation{
 
     private Amount amount;
@@ -8,7 +10,7 @@ public class DepositOperation extends Operation{
         this.amount = amount;
     }
 
-    public void affectTo(Account account) {
-        account.deposit(amount);
+    public void computeOperation(Account account, LocalDateTime operationDate) {
+        account.deposit(amount, operationDate);
     }
 }
