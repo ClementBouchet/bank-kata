@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AccountHistory {
+
     private List<HistoryLine> historyLines;
 
     public AccountHistory(List<HistoryLine> historyLines) {

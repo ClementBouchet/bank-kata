@@ -23,8 +23,7 @@ public class AccountTest {
 
         account.deposit(amountDeposited, operationDate);
 
-        Amount expectedAccountBalance = Amount.of(new BigDecimal(10.19));
-        assertThat(account.accountBalance).isEqualTo(expectedAccountBalance);
+        assertThat(account.accountBalance).isEqualTo(amountDeposited);
     }
 
     @Test

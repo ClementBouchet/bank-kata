@@ -3,6 +3,7 @@ package fr.lacombe;
 import java.time.LocalDateTime;
 
 public class Account {
+
     public Amount accountBalance;
     private AccountHistory accountHistory;
 
